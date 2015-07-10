@@ -77,6 +77,7 @@ class ShellProc(object):
         proc = subprocess.Popen(command, shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.dict['stdout'], self.dict['stderr'] = proc.communicate()
+	self.dict['stdout'].rstrip('\n')
         self.dict['exit_code'] = proc.returncode
         self.exit_check()
 
