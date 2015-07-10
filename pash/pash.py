@@ -74,7 +74,7 @@ class ShellProc(object):
             value overwrites them
         """
         self.command = command
-        proc = subprocess.Popen("sudo "+command, shell=True,
+        proc = subprocess.Popen(command, shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         self.dict['stdout'], self.dict['stderr'] = proc.communicate()
         self.dict['exit_code'] = proc.returncode
