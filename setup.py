@@ -24,17 +24,13 @@ test_requirements = [
 
 setup(
     name='pash',
-    version='1.0.2',
+    version='1.0.4',
     description="Module for interacting with os.subprocess easily.",
     long_description=readme + '\n\n' + history,
     author="Ian McFarlane",
     author_email='iansmcfarlane@gmail.com',
     url='https://github.com/iansmcf/pash',
-    packages=[
-        'pash',
-    ],
-    package_dir={'pash':
-                 'pash'},
+    py_modules = ['pash'],
     include_package_data=True,
     install_requires=requirements,
     license="BSD",
