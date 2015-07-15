@@ -8,21 +8,11 @@ test_pash
 Tests for `pash` module.
 """
 
-import unittest
-
+import py.test
 from pash import pash
 
+proc = pash.ShellProc()
+proc.run('ls')
 
-class TestPash(unittest.TestCase):
-
-    def setUp(self):
-        pass
-
-    def test_something(self):
-        pass
-
-    def tearDown(self):
-        pass
-
-if __name__ == '__main__':
-    unittest.main()
+def test_no_newline():
+    assert proc.get_val('stdout')[-1] != '\n'
