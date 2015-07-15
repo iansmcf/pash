@@ -15,7 +15,6 @@ Example:
     >>> proc.run("echo 'Yes!'")
     >>> print proc.get_val('stdout')
     Yes!
-    <BLANKLINE>
 
 """
 
@@ -57,7 +56,7 @@ class ShellProc(object):
 
     # Runs the command given; this allows the same object
     # to be used for multiple commands, avoiding syntax bloat
-    def run(self, command):
+    def run(self, command=None):
         """ Talking to the shell
 
         This runs a given command and stores the results (temporarily)
@@ -72,18 +71,30 @@ class ShellProc(object):
             Values for stdout, stderr, and the exit code of the
             shell are stored in 'self.dict' until some other
             value overwrites them
+
+        Returns:
+            self.dict['stdout']: The stdout return by the shell process
         """
-        self.command = command
+        # default to the most recently run command
+        if command == None:
+            command = self.command
+        else:
+            self.command = command
         proc = subprocess.Popen(command, shell=True,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        self.dict['stdout'], self.dict['stderr'] = proc.communicate()
-	self.dict['stdout'] = self.dict['stdout'].rstrip('\n')
+        out, err = proc.communicate()
+        self.dict['stdout'] = out.rstrip('\n')
+        self.dict['stderr'] = err.rstrip('\n')
         self.dict['exit_code'] = proc.returncode
         self.exit_check()
+        return self.dict['stdout']
 
     # Simple interface for accessing the dict, given a key
     def get_val(self, string='stdout'):
         """Getting a value from the dictionary
+
+        If the value is 'false' (i.e., an empty string) then this
+        returns None instead.
 
         Args:
             string (string): A string matching the value for the key
@@ -93,7 +104,8 @@ class ShellProc(object):
         Returns:
             self.dict[string] (object): A value mapped to 'string'
         """
-        return self.dict[string]
+        if self.dict[string]:
+            return self.dict[string]
 
     # Returns the last command run
     def get_comm(self):
