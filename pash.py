@@ -104,7 +104,7 @@ class ShellProc(object):
         Returns:
             self.dict[string] (object): A value mapped to 'string'
         """
-        if self.dict[string] or if type(self.dict[string]) == int:
+        if self.dict[string] or type(self.dict[string]) == int:
             return self.dict[string]
 
     # Returns the last command run
