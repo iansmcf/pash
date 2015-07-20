@@ -44,3 +44,4 @@ docs/_build
 
 *.py~
 *.swp
+*tests/pash.py
