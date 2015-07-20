@@ -24,7 +24,7 @@ test_requirements = [
 
 setup(
     name='pash',
-    version='1.1.1',
+    version='1.1.2',
     description="Module for interacting with os.subprocess easily.",
     long_description=readme + '\n\n' + history,
     author="Ian McFarlane",
